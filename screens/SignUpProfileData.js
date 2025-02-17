@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { 
   View, Text, TextInput, TouchableOpacity, 
   StyleSheet, Keyboard, TouchableWithoutFeedback, Platform
@@ -5,8 +6,34 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, VALUES } from '../assets/theme';
+import { useAlert } from '../context/AlertProvider';
 
-export default function SignUpScreen({ navigation }) {
+export default function SignUpUserData({ navigation }) {
+  const { showAlert } = useAlert();
+  
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleContinue = () => {
+    if (!username.trim()) {
+      showAlert('error', 'El nombre de usuario es obligatorio.');
+      return;
+    }
+
+    if (!password.trim()) {
+      showAlert('error', 'La contraseña no puede estar vacía.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showAlert('warning', 'Las contraseñas no coinciden.');
+      return;
+    }
+
+    showAlert('success', 'Usuario creado con exito.', 'HomeScreen' )
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <LinearGradient 
@@ -21,25 +48,40 @@ export default function SignUpScreen({ navigation }) {
         </TouchableOpacity>
 
         <Text style={styles.logo}>BANCAPLATA</Text>
+        <Text style={styles.title}>Datos del perfil</Text>
 
-        <Text style={styles.title}>Registro de Usuario</Text>
-        <Text style={styles.subtitle}>Ingresa tu documento para continuar</Text>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Número de documento"
-          placeholderTextColor={COLORS.gray50}
-          keyboardType="numeric"
-          accessibilityLabel="Número de documento"
+        <TouchableOpacity style={styles.input} onPress={() => { /* Lógica de carga de imagen */ }}>
+          <Text style={styles.placeholderText}>Foto de Perfil</Text>
+        </TouchableOpacity>
+        
+        <TextInput 
+          style={styles.input} 
+          placeholder="Nombre de usuario"  
+          placeholderTextColor={COLORS.gray50} 
+          value={username}
+          onChangeText={setUsername}
+        />
+        
+        <TextInput 
+          style={styles.input} 
+          placeholder="Contraseña" 
+          placeholderTextColor={COLORS.gray50} 
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        
+        <TextInput 
+          style={styles.input} 
+          placeholder="Confirmar contraseña" 
+          placeholderTextColor={COLORS.gray50} 
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
         />
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUpUserData')}>
-          <LinearGradient
-            colors={[COLORS.gold300, COLORS.gold100, COLORS.gold300]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.buttonGradient}
-          >
+        <TouchableOpacity style={styles.button} onPress={handleContinue}>
+          <LinearGradient colors={[COLORS.gold300, COLORS.gold100, COLORS.gold300]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.buttonGradient}>
             <Text style={styles.buttonText}>CONTINUAR</Text>
           </LinearGradient>
         </TouchableOpacity>
@@ -72,19 +114,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.gold300,
     letterSpacing: 4,
-    marginBottom: 70,
+    marginTop: 50,
+    marginBottom: 30,
     fontFamily: 'AleoBold',
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
     color: COLORS.textPrimary,
-    marginBottom: 20,
-  },
-  subtitle: {
-    fontSize: 12,
-    color: COLORS.textPrimary,
-    opacity: 0.5,
     marginBottom: 20,
   },
   input: {
@@ -96,6 +133,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderColor: COLORS.gray100,
     borderWidth: 2,
+  },
+  placeholderText: {
+    color: COLORS.gray50,
   },
   button: {
     margin: 20,

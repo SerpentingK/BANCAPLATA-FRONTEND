@@ -1,19 +1,23 @@
-import { 
-  View, Text, TextInput, TouchableOpacity, 
+import {
+  View, Text, TextInput, TouchableOpacity,
   StyleSheet, Keyboard, TouchableWithoutFeedback, Platform
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+
+import {useAlert} from '../context/AlertProvider'
 import { COLORS, VALUES } from '../assets/theme';
 
 export default function SignUpScreen({ navigation }) {
+  const {showAlert} = useAlert();
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <LinearGradient 
+      <LinearGradient
         colors={COLORS.primaryGradient}
         start={VALUES.backgroundStart}
         end={VALUES.backgroundEnd}
-        locations={VALUES.locations} 
+        locations={VALUES.locations}
         style={styles.container}
       >
         <TouchableOpacity style={styles.helpIcon} onPress={() => { }}>
@@ -22,18 +26,19 @@ export default function SignUpScreen({ navigation }) {
 
         <Text style={styles.logo}>BANCAPLATA</Text>
 
-        <Text style={styles.title}>Registro de Usuario</Text>
-        <Text style={styles.subtitle}>Ingresa tu documento para continuar</Text>
+        <Text style={styles.title}>Verificacion Telefono</Text>
+        <Text style={styles.subtitle}>Hemos enviado un mensaje de texto al numero 333 333 3333</Text>
+        <Text style={styles.subtitle}>Escribe el codigo para continuar:</Text>
 
         <TextInput
           style={styles.input}
-          placeholder="Número de documento"
+          placeholder="Codigo"
           placeholderTextColor={COLORS.gray50}
           keyboardType="numeric"
           accessibilityLabel="Número de documento"
         />
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUpUserData')}>
+        <TouchableOpacity style={styles.button} onPress={() => showAlert('success', 'Confirmacion completa', 'SignUpProfileData')}>
           <LinearGradient
             colors={[COLORS.gold300, COLORS.gold100, COLORS.gold300]}
             start={{ x: 0, y: 0 }}
@@ -76,16 +81,18 @@ const styles = StyleSheet.create({
     fontFamily: 'AleoBold',
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     color: COLORS.textPrimary,
     marginBottom: 20,
   },
   subtitle: {
-    fontSize: 12,
+    fontSize: 10,
     color: COLORS.textPrimary,
     opacity: 0.5,
     marginBottom: 20,
+    textAlign: 'center',
+    width: '70%'
   },
   input: {
     width: '70%',
@@ -119,7 +126,7 @@ const styles = StyleSheet.create({
   },
   registerText: {
     marginTop: 10,
-    fontSize: 12,
+    fontSize: 10,
     color: COLORS.textPrimary,
     opacity: 0.5,
     marginBottom: 20,

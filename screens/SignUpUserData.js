@@ -66,7 +66,7 @@ export default function SignUpUserData({ navigation }) {
         <TextInput style={styles.input} placeholder="Dirección" placeholderTextColor={COLORS.gray50} />
         <TextInput style={styles.input} placeholder="Correo Electrónico" keyboardType="email-address" placeholderTextColor={COLORS.gray50} />
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUpPhoneConfirm')}>
           <LinearGradient colors={[COLORS.gold300, COLORS.gold100, COLORS.gold300]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.buttonGradient}>
             <Text style={styles.buttonText}>CONTINUAR</Text>
           </LinearGradient>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: '80%',
+    width: '70%',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     padding: 12,
     borderRadius: 8,
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   dateInputView: {
     marginBottom: 12,
-    width: '80%',
+    width: '70%',
     alignSelf: 'center',
     borderWidth: 2,
     borderColor: COLORS.gray100,

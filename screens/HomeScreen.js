@@ -31,35 +31,8 @@ export default function SignInScreen({ navigation }) {
 
         <Text style={styles.logo}>BANCAPLATA</Text>
 
-        <Text style={styles.title}>Inicio de sesión</Text>
-        <Text style={styles.subtitle}>Ingresa tu documento y tu contraseña</Text>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Número de documento"
-          placeholderTextColor={COLORS.gray50}
-          keyboardType="numeric"
-          accessibilityLabel="Número de documento"
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry
-          placeholderTextColor={COLORS.gray50}
-        />
-
-        <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('HomeScreen') }}>
-          <LinearGradient
-            colors={[COLORS.gold300, COLORS.gold100, COLORS.gold300]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.buttonGradient}
-          >
-            <Text style={styles.buttonText}>CONTINUAR</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-
+        <Text style={styles.title}>HOME</Text>
+        
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.registerText}>Registrarse</Text>
         </TouchableOpacity>
@@ -102,40 +75,5 @@ const styles = StyleSheet.create({
     color: COLORS.textPrimary,
     opacity: .5,
     marginBottom: 20,
-  },
-  input: {
-    width: '70%',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    padding: 12,
-    borderRadius: 8,
-    color: COLORS.textPrimary,
-    marginBottom: 12,
-    borderColor: COLORS.gray100,
-    borderWidth: 2
-  },
-  button: {
-    margin: 20,
-    width: '60%',
-    alignSelf: 'center',
-    minWidth: 200,
-    alignItems: 'center',
-  },
-  buttonGradient: {
-    width: '100%',
-    alignItems: 'center',
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: COLORS.gray300,
-    fontSize: 16,
-    fontWeight: 'bold',
-    padding: 20,
-    borderRadius: 2
-  },
-  registerText: {
-    fontSize: 12,
-    color: COLORS.textPrimary,
-    opacity: .5,
-    marginBottom: 20,
-  },
+  }
 });
